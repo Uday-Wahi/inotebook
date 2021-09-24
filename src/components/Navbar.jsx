@@ -1,49 +1,106 @@
-import { Link } from "react-router-dom";
+import { useRef } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
+  let location = useLocation().pathname;
+  const navClose = useRef(null);
+
+  const handleClick = () => {
+    navClose.current.click();
+  };
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div className="navbar navbar-expand-md navbar-dark bg-dark">
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
+        <Link to="/" className="navbar-brand" onClick={handleClick}>
           iNoteBook
         </Link>
         <button
-          className="navbar-toggler"
+          ref={navClose}
           type="button"
+          className="navbar-toggler"
+          data-bs-target="#mobile_menu"
           data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
           aria-expanded="false"
+          aria-controls="navbarSupportedContent"
           aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+
+        {/* home & about */}
+        <div className="navbar-collapse collapse" id="mobile_menu">
+          <ul className="navbar-nav me-auto mb-lg-0">
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/">
+              <Link
+                className={`nav-link ${location === "/" ? "active" : ""}`}
+                to="/"
+                aria-current="page"
+                onClick={handleClick}>
                 Home
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link active" to="/about">
+              <Link
+                className={`nav-link ${location === "/about" ? "active" : ""}`}
+                to="/about"
+                onClick={handleClick}>
                 About
               </Link>
             </li>
           </ul>
-          <form className="d-flex">
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button className="btn btn-outline-light" type="submit">
-              Search
-            </button>
-          </form>
+
+          {/* drop down */}
+          <ul className="navbar-nav mb-lg-0 me-4">
+            <li className="nav-item dropdown">
+              <Link
+                to="#"
+                className="nav-link dropdown-toggle active"
+                data-bs-toggle="dropdown"
+                id="navbarDropdown"
+                role="button"
+                aria-expanded="false">
+                Login / Sign Up
+              </Link>
+              <ul
+                className="dropdown-menu bg-dark border rounded-3"
+                aria-labelledby="navbarDropdown">
+                <li>
+                  <Link className="dropdown-item " to="/login">
+                    <i
+                      className={`fas fa-sign-in-alt ${
+                        location === "/login" ? "text-white" : "text-secondary"
+                      }`}></i>
+                    <span
+                      className={`ms-2 ${
+                        location === "/login" ? "text-white" : "text-secondary"
+                      }`}
+                      onClick={handleClick}>
+                      Login
+                    </span>
+                  </Link>
+                </li>
+                <hr className="dropdown-divider text-secondary" />
+                <li>
+                  <Link className="dropdown-item" to="/signup">
+                    <i
+                      className={`fas fa-user-plus ${
+                        location === "/signup" ? "text-white" : "text-secondary"
+                      }`}></i>
+                    <span
+                      className={`ms-2 ${
+                        location === "/signup" ? "text-white" : "text-secondary"
+                      }`}
+                      onClick={handleClick}>
+                      Sign Up
+                    </span>
+                  </Link>
+                </li>
+              </ul>
+            </li>
+          </ul>
         </div>
       </div>
-    </nav>
+    </div>
   );
 };
 
