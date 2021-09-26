@@ -1,12 +1,19 @@
 import { useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 
 const Navbar = () => {
   let location = useLocation().pathname;
+  let history = useHistory();
   const navClose = useRef(null);
 
   const handleClick = () => {
     navClose.current.click();
+  };
+
+  const handleLogout = () => {
+    navClose.current.click();
+    history.push("/login");
+    localStorage.removeItem("notetoken");
   };
 
   return (
@@ -27,7 +34,6 @@ const Navbar = () => {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        {/* home & about */}
         <div className="navbar-collapse collapse" id="mobile_menu">
           <ul className="navbar-nav me-auto mb-lg-0">
             <li className="nav-item">
@@ -49,55 +55,83 @@ const Navbar = () => {
             </li>
           </ul>
 
-          {/* drop down */}
-          <ul className="navbar-nav mb-lg-0 me-4">
-            <li className="nav-item dropdown">
+          {!localStorage.getItem("notetoken") ? (
+            <ul className="navbar-nav mb-lg-0 me-4">
+              <li className="nav-item dropdown">
+                <Link
+                  to="#"
+                  className="nav-link dropdown-toggle active"
+                  data-bs-toggle="dropdown"
+                  id="navbarDropdown"
+                  role="button"
+                  aria-expanded="false">
+                  Login / Sign Up
+                </Link>
+                <ul
+                  className="dropdown-menu bg-dark border rounded-3"
+                  aria-labelledby="navbarDropdown">
+                  <li>
+                    <Link className="dropdown-item" to="/login">
+                      <i
+                        className={`fas fa-sign-in-alt ${
+                          location === "/login"
+                            ? "text-white"
+                            : "text-secondary"
+                        }`}></i>
+                      <span
+                        className={`ms-2 ${
+                          location === "/login"
+                            ? "text-white"
+                            : "text-secondary"
+                        }`}
+                        onClick={handleClick}>
+                        Login
+                      </span>
+                    </Link>
+                  </li>
+                  <hr className="dropdown-divider text-secondary" />
+                  <li>
+                    <Link className="dropdown-item" to="/signup">
+                      <i
+                        className={`fas fa-user-plus ${
+                          location === "/signup"
+                            ? "text-white"
+                            : "text-secondary"
+                        }`}></i>
+                      <span
+                        className={`ms-2 ${
+                          location === "/signup"
+                            ? "text-white"
+                            : "text-secondary"
+                        }`}
+                        onClick={handleClick}>
+                        Sign Up
+                      </span>
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          ) : (
+            <li>
               <Link
-                to="#"
-                className="nav-link dropdown-toggle active"
-                data-bs-toggle="dropdown"
-                id="navbarDropdown"
-                role="button"
-                aria-expanded="false">
-                Login / Sign Up
+                className="dropdown-item"
+                style={{ display: "unset" }}
+                to="#">
+                <i
+                  className={`fas fa-sign-out-alt ${
+                    location === "/logout" ? "text-white" : "text-secondary"
+                  }`}></i>
+                <span
+                  className={`ms-2 ${
+                    location === "/logout" ? "text-white" : "text-secondary"
+                  }`}
+                  onClick={handleLogout}>
+                  Logout
+                </span>
               </Link>
-              <ul
-                className="dropdown-menu bg-dark border rounded-3"
-                aria-labelledby="navbarDropdown">
-                <li>
-                  <Link className="dropdown-item " to="/login">
-                    <i
-                      className={`fas fa-sign-in-alt ${
-                        location === "/login" ? "text-white" : "text-secondary"
-                      }`}></i>
-                    <span
-                      className={`ms-2 ${
-                        location === "/login" ? "text-white" : "text-secondary"
-                      }`}
-                      onClick={handleClick}>
-                      Login
-                    </span>
-                  </Link>
-                </li>
-                <hr className="dropdown-divider text-secondary" />
-                <li>
-                  <Link className="dropdown-item" to="/signup">
-                    <i
-                      className={`fas fa-user-plus ${
-                        location === "/signup" ? "text-white" : "text-secondary"
-                      }`}></i>
-                    <span
-                      className={`ms-2 ${
-                        location === "/signup" ? "text-white" : "text-secondary"
-                      }`}
-                      onClick={handleClick}>
-                      Sign Up
-                    </span>
-                  </Link>
-                </li>
-              </ul>
             </li>
-          </ul>
+          )}
         </div>
       </div>
     </div>

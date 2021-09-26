@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import NoteContext from "../context/notes/NoteContext";
 
-const NoteItem = ({ note, editNote }) => {
+const NoteItem = ({ note, editNote, showAlert }) => {
   const context = useContext(NoteContext);
   const { deleteNote } = context;
 
@@ -16,6 +16,7 @@ const NoteItem = ({ note, editNote }) => {
               style={{ cursor: "pointer" }}
               onClick={() => {
                 deleteNote(note._id);
+                showAlert("Deleted successfully", "success");
               }}></i>
             <i
               className="far fa-edit mx-1"
