@@ -2,7 +2,7 @@ import { useState } from "react";
 import NoteContext from "./NoteContext";
 
 const NoteState = (props) => {
-  const url = process.env.REACT_APP_DOMAIN_URL;
+  const url = "https://notesoncloud.herokuapp.com";
 
   const [notes, setNotes] = useState([]);
 

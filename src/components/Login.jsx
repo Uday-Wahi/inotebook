@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 const Login = (props) => {
-  const url = process.env.REACT_APP_DOMAIN_URL;
+  const url = "https://notesoncloud.herokuapp.com";
   let history = useHistory();
 
   const [creds, setcreds] = useState({ email: "", password: "" });
