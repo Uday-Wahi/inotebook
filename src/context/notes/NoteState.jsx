@@ -2,7 +2,7 @@ import { useState } from "react";
 import NoteContext from "./NoteContext";
 
 const NoteState = (props) => {
-  const url = "https://inotebook-720d0.onrender.com";
+  const url = "https://rich-lime-butterfly-wear.cyclic.cloud/";
   // const url = "http://localhost:5000";
 
   const [notes, setNotes] = useState([]);
