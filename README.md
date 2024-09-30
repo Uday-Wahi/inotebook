@@ -20,6 +20,3 @@ In a build folder in your project directory.
 
 This also has a backend functionality which is at this repository
 [inotebook-backend](https://github.com/Uday-Wahi/inotebook-backend).
-
-## live preview
- click here [iNoteBook](https://inotebook-728b9.web.app/)
